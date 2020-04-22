@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -24,18 +23,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
     private Context mContext;
+    private OnImageListener mOnImageListener;
 
-    public RecyclerViewAdapter(ArrayList<String> mImageNames, ArrayList<String> mImages, Context mContext) {
+    public RecyclerViewAdapter(ArrayList<String> mImageNames, ArrayList<String> mImages,
+                               Context mContext, OnImageListener onImageListener) {
         this.mImageNames = mImageNames;
         this.mImages = mImages;
         this.mContext = mContext;
+        this.mOnImageListener = onImageListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_list_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, mOnImageListener);
         return holder;
     }
 
@@ -48,17 +50,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .into(holder.image);
 
         holder.imageName.setText(mImageNames.get(position));
-
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + mImageNames.get(position));
-
-                Toast.makeText(mContext, mImageNames.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
     @Override
@@ -66,17 +57,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mImageNames.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CircleImageView image;
         TextView imageName;
         ConstraintLayout parentLayout;
+        OnImageListener onImageListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnImageListener onImageListener) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             imageName = itemView.findViewById(R.id.image_name);
             parentLayout = itemView.findViewById(R.id.parent_layout);
+            this.onImageListener = onImageListener;
+
+            parentLayout.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onImageListener.onImageClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnImageListener {
+        void onImageClick(int position);
     }
 }
