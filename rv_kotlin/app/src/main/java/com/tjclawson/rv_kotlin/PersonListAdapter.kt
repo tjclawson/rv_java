@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.person_list_view.view.*
 
-class PersonListAdapter(private var personList: MutableList<Person>,
-                        private val onItemClicked: (position: Int) -> Unit)
+class PersonListAdapter(private val onItemClicked: (position: Int) -> Unit)
     : RecyclerView.Adapter<PersonListAdapter.ViewHolder>() {
+
+    private var personList = mutableListOf<Person>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.person_list_view, parent, false)
@@ -19,6 +20,12 @@ class PersonListAdapter(private var personList: MutableList<Person>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(personList[position])
+    }
+
+    fun submitList(list: MutableList<Person>) {
+        personList.clear()
+        personList.addAll(list)
+        this.notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
