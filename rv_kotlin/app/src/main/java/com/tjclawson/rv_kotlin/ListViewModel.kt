@@ -1,8 +1,7 @@
-package com.tjclawson.rv_kotlin.data
+package com.tjclawson.rv_kotlin
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tjclawson.rv_kotlin.SwapiService
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

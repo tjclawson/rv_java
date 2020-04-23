@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.tjclawson.rv_kotlin.data.Person
 import kotlinx.android.synthetic.main.person_list_view.view.*
 
 class PersonListAdapter(private var personList: MutableList<Person>,

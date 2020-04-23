@@ -1,4 +1,4 @@
-package com.tjclawson.rv_kotlin.data
+package com.tjclawson.rv_kotlin
 
 data class Person(
     val name: String,

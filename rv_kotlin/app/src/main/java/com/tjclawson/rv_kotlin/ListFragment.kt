@@ -1,6 +1,5 @@
-package com.tjclawson.rv_kotlin.data
+package com.tjclawson.rv_kotlin
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tjclawson.rv_kotlin.PersonListAdapter
 
-import com.tjclawson.rv_kotlin.R
 import kotlinx.android.synthetic.main.list_fragment.*
 
 class ListFragment : Fragment() {
@@ -44,7 +41,9 @@ class ListFragment : Fragment() {
                 viewModel.selectPerson(it)
                 activity!!.supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragment_container, DetailFragment())
+                    .replace(R.id.fragment_container,
+                        DetailFragment()
+                    )
                     .commit()
             }
         }

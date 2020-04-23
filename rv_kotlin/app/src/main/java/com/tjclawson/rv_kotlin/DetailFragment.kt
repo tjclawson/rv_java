@@ -1,4 +1,4 @@
-package com.tjclawson.rv_kotlin.data
+package com.tjclawson.rv_kotlin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.tjclawson.rv_kotlin.R
 import kotlinx.android.synthetic.main.detail_fragment.*
 
 class DetailFragment() : Fragment() {

@@ -1,4 +1,6 @@
-package com.tjclawson.rv_kotlin.data
+package com.tjclawson.rv_kotlin
+
+import com.tjclawson.rv_kotlin.Person
 
 class SwapiResponse(
     val count: Int,
