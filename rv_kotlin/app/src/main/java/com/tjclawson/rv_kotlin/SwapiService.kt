@@ -9,13 +9,18 @@ interface SwapiService {
     companion object {
 
         const val BASE_URL = "https://swapi.dev/api/"
+        private var instance: SwapiService? = null
 
-        operator fun invoke() =
-            Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(SwapiService::class.java)
+        operator fun invoke(): SwapiService? {
+            if (instance == null) {
+                instance = Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(SwapiService::class.java)
+            }
+            return instance
+        }
     }
 
     @GET("people")

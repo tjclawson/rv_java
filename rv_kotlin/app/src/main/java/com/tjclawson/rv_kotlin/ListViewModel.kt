@@ -21,7 +21,7 @@ class SharedViewModel : ViewModel() {
 
     private fun getAllPersons() {
         GlobalScope.launch {
-            personList.postValue(swapiService.getAllPeople().results)
+            personList.postValue(swapiService?.getAllPeople()?.results)
         }
     }
 }
