@@ -39,11 +39,9 @@ class ListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = PersonListAdapter(personList) {
                 viewModel.selectPerson(it)
-                activity!!.supportFragmentManager
+                requireActivity().supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragment_container,
-                        DetailFragment()
-                    )
+                    .replace(R.id.fragment_container, DetailFragment())
                     .commit()
             }
         }
