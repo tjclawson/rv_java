@@ -1,0 +1,2 @@
+rootProject.name='rv_last_test'
+include ':app'
