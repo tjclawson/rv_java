@@ -46,6 +46,7 @@ class ListFragment : Fragment() {
     private fun launchDetailFragment() {
         requireActivity().supportFragmentManager
             .beginTransaction()
+            .addToBackStack(null)
             .replace(R.id.fragment_container, DetailFragment())
             .commit()
     }
