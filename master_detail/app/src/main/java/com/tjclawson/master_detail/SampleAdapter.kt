@@ -28,7 +28,7 @@ class SampleAdapter(private val onItemClicked: (position: Int) -> Unit) : Recycl
         else holder.parent.setCardBackgroundColor(Color.WHITE)
         holder.parent.setOnClickListener {
             selectItem(position)
-            //onItemClicked.invoke(position)
+            onItemClicked.invoke(position)
         }
     }
 
