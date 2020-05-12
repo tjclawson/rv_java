@@ -39,7 +39,7 @@ class SharedViewModel : ViewModel() {
     }
 
     fun selectItem(position: Int) {
-        selected.postValue(items.value?.get(position))
+        selected.value = items.value?.get(position)
     }
 
 }
