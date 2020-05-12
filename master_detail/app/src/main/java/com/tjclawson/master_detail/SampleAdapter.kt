@@ -1,15 +1,17 @@
 package com.tjclawson.master_detail
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_list_view.view.*
 
 class SampleAdapter(private val onItemClicked: (position: Int) -> Unit) : RecyclerView.Adapter<SampleAdapter.ViewHolder>() {
 
     private var itemList = mutableListOf<Item>()
-    private var lastSelected: Int? = null
     private var selected: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,7 +22,14 @@ class SampleAdapter(private val onItemClicked: (position: Int) -> Unit) : Recycl
     override fun getItemCount() = itemList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(itemList[position])
+        val data = itemList[position]
+        holder.titleView.text = data.title
+        if (selected == position) holder.parent.setCardBackgroundColor(Color.RED)
+        else holder.parent.setCardBackgroundColor(Color.WHITE)
+        holder.parent.setOnClickListener {
+            selectItem(position)
+            //onItemClicked.invoke(position)
+        }
     }
 
     fun submitList(list: MutableList<Item>) {
@@ -30,20 +39,14 @@ class SampleAdapter(private val onItemClicked: (position: Int) -> Unit) : Recycl
     }
 
     private fun selectItem(position: Int) {
-        lastSelected = selected
+        val lastSelected = selected
         selected = position
-        this.notifyItemChanged(position)
-        lastSelected?.let { this.notifyItemChanged(it) }
+        selected?.let { notifyItemChanged(it) }
+        lastSelected?.let { notifyItemChanged(it) }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Item) = with(itemView) {
-            this.tv_title.text = item.title
-            if (adapterPosition == selected) this.cv_parent.setBackgroundColor(resources.getColor(R.color.colorAccent))
-            this.setOnClickListener {
-                onItemClicked.invoke(adapterPosition)
-                selectItem(adapterPosition)
-            }
-        }
+        val parent: CardView = itemView.cv_parent
+        val titleView: TextView = itemView.tv_title
     }
 }
